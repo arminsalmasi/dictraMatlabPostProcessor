@@ -64,71 +64,43 @@ function [] = readProfiles(folder_name,current_path)
     phnames=cell(0);
     j=1;
     for i=1:nph
-        k=j;
-        ok=1;
-        while ok==1
-            k=k+1;
-            if val(k)==13
-                %ok=0;
-                val(k)=[];
-            end
-            if val(k)==10
-                ok=0;
-            end
+      k=j;
+      ok=1;
+      while ok==1
+        k=k+1;
+        if val(k)==13
+          %ok=0;
+          val(k)=[];
         end
-        phnames{i}=char(val(j:k-1)');
-        j=k+1;
+        if val(k)==10
+          ok=0;
+        end
+      end
+      phnames{i}=char(val(j:k-1)');
+      j=k+1;
     end
 
-    valeol1=val;
-    valeol2=val;
+    %valeol1=val;
+    %valeol2=val;
+    %fid = fopen([folder_name '\PH_NAMES.TXT' ]);
+    %phsCell = textscan(fid,'%s\n');
+    %fclose(fid);
+    %phsChar = char(phsCell{1}); 
+    %phsStr = cellstr(phsChar); 
     
-    phnamesTC=cell(0);
-    j=1;
-    for i=1:nph
-        k=j;
-        ok=1;
-        while ok==1
-            k=k+1;
-            if  valeol1(k)==35
-                %ok=0;
-                valeol1(k)=[];
-            end
-            if ((47<valeol1(k)) && (valeol1(k)<58))
-                %ok=0;
-                valeol1(k)=[];
-            end
-            if valeol1(k)==10
-                ok=0;
-            end
-        end
-        phnamesTC{i}=char(valeol1(j:k-1)');
-        j=k+1;
+    phsStr = phnames';
+    for i = 1: size(phsStr,1)
+      temp1 = phsStr{i};
+      temp2 = temp1;
+      k1 = strfind(temp1,'#');
+      k2 = strfind(temp2,'_');
+      temp1= temp1(1:k1-1);
+      temp2(k2)='-';
+      phsStr1{i} = temp1;
+      phsStr2{i} = temp2;
     end
-    
-  
-    phnamesPLOT=cell(0);
-    j=1;
-    for i=1:nph
-        k=j;
-        ok=1;
-        while ok==1
-            k=k+1;
-            if  valeol2(k)==95
-                %ok=0;
-                valeol2(k)=45;
-            end
-            if valeol2(k)==10
-                ok=0;
-            end
-        end
-        phnamesPLOT{i}=char(valeol2(j:k-1)');
-        j=k+1;
-    end  
-    
-    
-    
-    clear val
+    phnamesTC = phsStr1;
+    phnamesPLOT = phsStr2;
 
     %load dynamic vectors from file
     load ([folder_name '\TIME.TXT']);
@@ -258,9 +230,7 @@ function [] = readProfiles(folder_name,current_path)
     save([folder_name '\postDataTmp.mat'], 'VOLUMES_PER_REGION',...
          'VOLUME_MIDPOINTS', 'MOLE_FRACTIONS', 'CHEMICAL_POTENTIALS',...
          'PHASE_FRACTIONS', 'nel', 'nph', 'TIME', 'ndt', 'M','elnames',...
-         'phnames','phnamesTC','phnamesPLOT','plotVolFlg');
+         'phnames','phnamesPLOT', 'phnamesTC', 'plotVolFlg');
     clear variables
 end
-%[VOLUMES_PER_REGION, VOLUME_MIDPOINTS, MOLE_FRACTIONS,...
-%    CHEMICAL_POTENTIALS, PHASE_FRACTIONS, nel, nph, TIME, ndt, M, ...
-%    elnames, phnames]
+

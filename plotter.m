@@ -158,6 +158,7 @@ end
   %% Plot chemical potentials
 choice = questdlg('Plot chemical potentials?','plotting','YES', 'NO', 'YES');
 switch choice
+  
     case 'YES'
       choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
         for i = 1 :nel

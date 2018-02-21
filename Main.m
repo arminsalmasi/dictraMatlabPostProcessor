@@ -26,7 +26,7 @@ x = inputdlg([S1 num2str(TIME(end)) ', ' S2 num2str(ndt) ', ' S3],...
 tstps = unique(sort( floor(str2num(x{:}))));
 tstps = tstps(tstps>0);
 tstps = tstps(tstps<=ndt);
-if isempty(tstps)2
+if isempty(tstps)
     tstps=[1 ndt]
 end
 clear S1 S2 S3 x ndt TIME ;
