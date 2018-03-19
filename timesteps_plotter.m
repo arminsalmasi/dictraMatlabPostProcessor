@@ -1,7 +1,9 @@
+%% plot time steps
+plotter(tstps,folder_name);
+
+%% function plotter
 function [] = plotter(tstps,folder_name)
-%%
 load([folder_name '\postDataTmp.mat'], 'TIME');
-%%
 for i = 1 : size(tstps,2)
   fname= ['fs_t_' num2str(TIME(tstps(i)),'%10.0f') '.mat'];
   load([folder_name '\' fname],...
@@ -11,7 +13,7 @@ for i = 1 : size(tstps,2)
         'Np','Npm','Npv',...
         'Bp','Bpm','Bpv',...
         'Vp','Vpm','Vpv',...
-        'Vmp');
+        'Vmp', 'xinPhase');
   wf(i,:,:)=wfs;
   mf(i,:,:)=mfs;
   pf(i,:,:)=pfs;
@@ -33,13 +35,21 @@ for i = 1 : size(tstps,2)
   Vpmf(i,:,:)=Vpm;
   Vpvf(i,:,:)=Vpv;
   Vmpf(i,:,:)=Vmp;
-  
   clear wfs mfs pfs chemps dist tstp timeToPlot N v vm B Np Npm Npv Bp ...
         Bpm Bpv Vp Vpm Vpv Vmp
 end
-%%%%%
+%%
     d=linspace(1,100);
-%%%%%
+%% Prompt to read file prefix
+    prompt = 'file name prefix:'
+    fNamesPrefix = input(prompt,'s')
+%% Prompt to read xlimits    
+    prompt = 'Xlow:'
+    Xlow = input(prompt)
+    prompt = 'Xmax:'
+    Xmax = input(prompt) 
+    %Xlow=0;
+    %Xmax=2e-3;
 %% Plot individual mole fractions
   choice = questdlg('Plot mole-fractions?','plotting','YES', 'NO', 'YES');
   switch choice
@@ -52,6 +62,7 @@ end
         for j = 1 : size(tstps,2)    
           mftemp(:,:) = mf(j,:,:);  
           plot(dstf(:,j), mftemp(i,:));
+          xlim([Xlow,Xmax]);
           legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec']);
         end
         xlabel('Distance [m]','FontSize',15); %'Interpreter','latex'
@@ -60,10 +71,16 @@ end
   %         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
           switch choice
             case '.fig'
-              saveas(gcf,[folder_name '\mfs' elnames{i} '.fig'])
+              saveas(gcf,[folder_name '\'  fNamesPrefix 'mfs_' elnames{i} '.fig'])
             case '.png'
-              saveas(gcf,[folder_name '\mfs' elnames{i} '.png'])
-          end 
+              saveas(gcf,[folder_name '\'  fNamesPrefix 'mfs_' elnames{i} '.png'])
+          end
+%           %%%%%
+%           [f,p]=uiputfile({'*.jpg;*.tif;*.png;*.gif','All Image Files';...
+%           '*.*','All Files' },'Save Image',...
+%           'C:\Work\newfile.jpg')
+%           % https://se.mathworks.com/help/matlab/ref/uiputfile.html
+%           %%%%%
       end
     end
     
@@ -79,6 +96,7 @@ end
         for j = 1 : size(tstps,2)    
           wftemp(:,:) = wf(j,:,:);  
           plot(dstf(:,j), wftemp(i,:));
+          xlim([Xlow,Xmax]);
           legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
         end
         xlabel('Distance [m]','FontSize',15);
@@ -87,9 +105,9 @@ end
     %         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
           switch choice
           case '.fig'
-            saveas(gcf,[folder_name '\wfs' elnames{i} '.fig'])
+            saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.fig'])
           case '.png'
-            saveas(gcf,[folder_name '\wfs' elnames{i} '.png'])          
+            saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.png'])          
           end
       end
   end
@@ -108,6 +126,7 @@ end
           for j = 1 : size(tstps,2)    
             pftemp(:,:) = pf(j,:,:);  
             plot(dstf(:,j), pftemp(i,:));
+            xlim([Xlow,Xmax]);
             legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
           end
           xlabel('Distance [m]','FontSize',15);
@@ -116,9 +135,9 @@ end
 %           choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
             switch choice
               case '.fig'
-                  saveas(gcf,[folder_name '\pfs' num2str(i) '.fig'])
+                  saveas(gcf,[folder_name '\'  fNamesPrefix 'pfs' num2str(i) '.fig'])
               case '.png'
-                  saveas(gcf,[folder_name '\pfs' num2str(i) '.png'])
+                  saveas(gcf,[folder_name '\'  fNamesPrefix 'pfs' num2str(i) '.png'])
             end
         end    
       end
@@ -139,6 +158,7 @@ end
             for j = 1 : size(tstps,2)    
                 vftemp(:,:) = Vpvf(j,:,:);  
                 plot(dstf(:,j), vftemp(i,:));
+                xlim([Xlow,Xmax]);
                 legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
             end
             xlabel('Distance [m]','FontSize',15);
@@ -147,9 +167,9 @@ end
 %             choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
             switch choice
               case '.fig'
-                saveas(gcf,[folder_name '\vfs' num2str(i) '.fig'])
+                saveas(gcf,[folder_name '\'  fNamesPrefix 'vfs' num2str(i) '.fig'])
               case '.png'
-                  saveas(gcf,[folder_name '\vfs' num2str(i) '.png'])
+                  saveas(gcf,[folder_name '\'  fNamesPrefix 'vfs' num2str(i) '.png'])
             end
         end    
       end 
@@ -168,18 +188,19 @@ switch choice
             for j = 1 : size(tstps,2)    
                 chemptemp(:,:) = chempf(j,:,:);  
                 plot(dstf(:,j), chemptemp(i,:));
+                xlim([Xlow,Xmax]);
                 legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
             end
             xlabel('Distance [m]','FontSize',15);
             ylabel(['Chemical potential ' elnames{i}],'FontSize',15);      
+            leg = legend(legendcell,'FontSize',15);
             leg.Location='northwest';
-            legend(legendcell,'FontSize',15);
 %             choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
                 switch choice
                     case '.fig'
-                        saveas(gcf,[folder_name '\chemps' elnames{i} '.fig'])
+                        saveas(gcf,[folder_name '\'  fNamesPrefix 'chemps' elnames{i} '.fig'])
                     case '.png'
-                        saveas(gcf,[folder_name '\chemps' elnames{i} '.png'])
+                        saveas(gcf,[folder_name '\'  fNamesPrefix 'chemps' elnames{i} '.png'])
                 end
         end  
 end

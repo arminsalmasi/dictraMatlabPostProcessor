@@ -1,4 +1,28 @@
+clear variables
+close all
+clc
 
+%% Main
+current_path= pwd ;
+folder_name = uigetdir(current_path);
+%% read profiles from file/ save in a .mat file
+if exist([folder_name '\postDataTmp.mat'], 'file')
+    choice = questdlg('Warning: file postDataTmp exist','warning','Overwrite', 'Use the old file', 'Overwrite');
+        switch choice
+            case 'Overwrite'
+                readProfiles(folder_name,current_path);  
+        end
+else
+    %warningMessage = sprintf()
+    %uiwait(msgbox(warningMessage));
+    readProfiles(folder_name,current_path);
+end
+    A='DONE'
+    clear A;
+
+
+
+%% Function read profile
 function [] = readProfiles(folder_name,current_path)
     
 %% read scalar quantities from static files
@@ -231,6 +255,7 @@ function [] = readProfiles(folder_name,current_path)
          'VOLUME_MIDPOINTS', 'MOLE_FRACTIONS', 'CHEMICAL_POTENTIALS',...
          'PHASE_FRACTIONS', 'nel', 'nph', 'TIME', 'ndt', 'M','elnames',...
          'phnames','phnamesPLOT', 'phnamesTC', 'plotVolFlg');
+
     clear variables
 end
 

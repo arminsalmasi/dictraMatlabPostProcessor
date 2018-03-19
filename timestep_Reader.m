@@ -1,19 +1,42 @@
-% read timestep to plot from input
+%% read timesteps from input
+load([folder_name '\postDataTmp.mat'], 'TIME', 'ndt');
+S1 = 'Simulated time is: ';
+S2 = 'Number of times steps is: ';
+S3 = 'select timesteps to plot (none zero posetive integers smaller than number of times steps, space seperated:)';
+x = inputdlg([S1 num2str(TIME(end)) ', ' S2 num2str(ndt) ', ' S3],...
+             'Sample', [1 200]);        
+tstps = unique(sort( floor(str2num(x{:}))));
+tstps = tstps(tstps>0);
+tstps = tstps(tstps<=ndt);
+if isempty(tstps)
+    tstps=[1 ndt]
+end
+clear S1 S2 S3 x ndt  ;
+%% read time steps from file and save to .mat file
+for i = 1: size(tstps,2)
+  fname= ['fs_t_' num2str(TIME(tstps(i)),'%10.0f')];
+  if exist([folder_name '\' fname '.mat'], 'file')
+    choice = questdlg('Warning: timestep file exist','warning','Overwrite', 'Use the old file', 'Overwrite');
+    switch choice
+      case 'Overwrite'
+        tstpReader(tstps(i),folder_name);
+      end
+  else
+    tstpReader(tstps(i),folder_name);
+  end
+end
+    A='DONE'
+    
+clear i choice TIME fname A;
+
+
+%% function tstpreader
 function []=tstpReader(tstp,folder_name)
 
   load([folder_name '\postDataTmp.mat'], 'VOLUMES_PER_REGION',...
   'VOLUME_MIDPOINTS', 'MOLE_FRACTIONS', 'CHEMICAL_POTENTIALS',...
   'PHASE_FRACTIONS', 'nel', 'nph', 'TIME', 'ndt', 'M','elnames',...
   'phnames','phnamesPLOT','phnamesTC');
-
-% remove zz_dictra
-% if  (size(CHEMICAL_POTENTIALS,1)/nph - size(MOLE_FRACTIONS,1)/nel)
-%   Df = (size(CHEMICAL_POTENTIALS,1)/nph) - (size(MOLE_FRACTIONS,1)/nel);
-%   numphaseDf = Df / size(VOLUME_MIDPOINTS,1);
-%   nph=nph-numphaseDf
-%   
-% end 
-
 
 %% read grid point x
     str_p_dist = sum(VOLUMES_PER_REGION(1:tstp-1))+1;
@@ -121,10 +144,12 @@ function []=tstpReader(tstp,folder_name)
                   Vp(i,j)  = tc_get_value(char(['Vp( ' char(phnames(i)) ')']));          
                   Vpm(i,j) = tc_get_value(char(['vpm(' char(phnames(i)) ')']));
                   Vpv(i,j) = tc_get_value(char(['vpv(' char(phnames(i)) ')']));
-                  Vmp(i,j) = tc_get_value(char(['vm( ' char(phnames(i)) ')']));
+                  Vmp(i,j) = tc_get_value(char(['vm( ' char(phnames(i)) ')']));                  
+                  for k = 1: nel
+                    xinPhase(i,k,j) = tc_get_value(char(strcat('x(', char(phnames(i)),',',cellstr(elnames{k}), ')')));
+                  end
                 end        
               end
-
               N = tc_get_value('N');
               v(j) = tc_get_value('v');
               vm(j) = tc_get_value('vm');
@@ -145,7 +170,7 @@ function []=tstpReader(tstp,folder_name)
     'Np','Npm','Npv',...
     'Bp','Bpm','Bpv',...
     'Vp','Vpm','Vpv',...
-    'Vmp');
+    'Vmp', 'xinPhase');
   %%
   clear variables
 end
