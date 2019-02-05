@@ -1,0 +1,159 @@
+go da
+sw tcfe8
+def-el W C Co N Ti
+rej ph *
+rest ph liq mc_shp fcc_a1
+get
+
+app us  E:\Dropbox\KTH_PHD\Projects\EXTRAS\KinThermo_data\Mob_AIMD_27.01.2016_Armin3-FH.TDB
+W CO Ti
+def-el
+N C
+rej ph *
+rest ph liquid fcc_a1
+get
+
+
+
+go poly
+s-c n=1 t=1723 p=1e5 
+@@1
+s-c  x(c)=0.412914785
+s-c x(co)=0.171638521
+s-c x(ti)=6.50E-07
+s-c  x(n)=0.000997295
+c-e
+l-e,,,,,
+
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.414448749
+@@5
+s-c  x(c)=0.402648063
+s-c x(co)=0.191825562
+s-c x(ti)=9.96E-06
+s-c  x(n)=0.001115612
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@ 0.404400797
+@@10
+s-c  x(c)=0.428337363
+s-c x(co)=0.071437566
+s-c x(ti)=0.032971924
+s-c  x(n)=0.088490927
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@ 0.37876222
+@@15
+s-c  x(c)=0.416307578
+s-c x(co)=0.09589486
+s-c x(ti)=0.033574872
+s-c  x(n)=0.073569434
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.380653256
+@@20
+s-c  x(c)=0.412212881
+s-c x(co)=0.103406089
+s-c x(ti)=0.034212721
+s-c  x(n)=0.068451573
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.381716737
+@@25
+s-c  x(c)=0.410395433
+s-c x(co)=0.106488514
+s-c x(ti)=0.034629409
+s-c  x(n)=0.066208739
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382277905
+@@30
+s-c  x(c)=0.40970823
+s-c x(co)=0.107647073
+s-c x(ti)=0.034791948
+s-c  x(n)=0.065435276
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382417472
+@@35
+s-c  x(c)=0.409609795
+s-c x(co)=0.107822305
+s-c x(ti)=0.034823413
+s-c  x(n)=0.065298595
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382445892
+@@40
+s-c  x(c)=0.409637703
+s-c x(co)=0.107792857
+s-c x(ti)=0.034826398
+s-c  x(n)=0.065292778
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382450264
+@@45
+s-c  x(c)=0.40965477
+s-c x(co)=0.107797757
+s-c x(ti)=0.034825721
+s-c  x(n)=0.065291139
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382430612
+@@50
+s-c  x(c)=0.409677432
+s-c x(co)=0.107798895
+s-c x(ti)=0.034825044
+s-c  x(n)=0.065289547
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382409082
+@@55
+s-c  x(c)=0.409702847
+s-c x(co)=0.107801557
+s-c x(ti)=0.034824192
+s-c  x(n)=0.065287577
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382383827
+@@60
+s-c  x(c)=0.409731015
+s-c x(co)=0.107801838
+s-c x(ti)=0.03482337
+s-c  x(n)=0.065285635
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382358143
+@@65
+s-c  x(c)=0.409755891
+s-c x(co)=0.107802605
+s-c x(ti)=0.034822606
+s-c  x(n)=0.065283844
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+@@0.382335054
+@@70
+s-c  x(c)=0.409767898
+s-c x(co)=0.107802969
+s-c x(ti)=0.034822234
+s-c  x(n)=0.065282974
+@@0.382323925
+c-e
+show M(liq,C) M(liq,Co) M(liq,N) M(liq,ti) M(liq,W)
+show x(liq,*)
+
+set-inter
+

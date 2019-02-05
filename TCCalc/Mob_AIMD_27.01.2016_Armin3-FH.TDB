@@ -1,0 +1,313 @@
+$--------------------------------------------------------------------------
+$                      L A S T   M O D I F I E D 
+$--------------------------------------------------------------------------
+$
+VERSION_DATE '      Dilute Co-alloy database version 1 2014-07-15 !
+$
+DATABASE_INFO '
+' Database for diffusion in liquid Co rich binder, Co,Cr,Ti,W,C,N,Ta,Nb
+' Liquid diffusion based on Ab initio molecular dynamics (AIMD) by Walbruehl_MA_Thesis
+'
+' 
+'
+$
+$ SUBSTITUTIONAL ELEMENTS
+$
+$
+$ INTERSTITIAL ELEMENTS
+$
+$
+$    NOTICE THAT ALL DATA ARE DERIVED FOR INFINITLY DILUTE Co FCC ALLOYS
+$
+$
+$--------------------------------------------------------------------------
+$                             n o t a   b e n e
+$--------------------------------------------------------------------------
+$
+$       IT HAS BEEN FOUND TO BE SUPERIOR TO TREAT THE LOGARITHM OF THE 
+$       FREQUENCY FACTOR RATHER THAN THE VALUE ITSELF. IN PARTICULAR THIS 
+$       CONCERNS ITS COMPOSITION DEPENDENCY. DOING SO WE CAN LET IT BE 
+$       INCORPORATED AS A T-TERM IN THE ACTIVATION ENERGY. FURTHERMORE, LET 
+$       THE PARAMETERS IN THE DATABASE BE, THE ACTIVATION ENERGY DG', BE 
+$       DEFINED AS
+$
+$               -DG' = RT *  LN( RT*M )        WHERE -DG' = - DH' + DS'*T
+$
+$       THUS
+$
+$               M = EXP(-DG'/RT) / RT = EXP(WORK(5)/RT) / RT 
+$
+$               DG' CORRESPONDS TO PARAMETER MQ(...) OR DQ(..)
+$
+$       HOWEVER, THIS APPROCH IS NOT POSSIBLE FOR 'MAGNETIC DIFFUSION'-PHASES
+$       FOR SUCH PHASES WE HAVE TO DIFFER BETWEEN THE ENTHALPY AND THE ENTROPY 
+$       TERM. 
+$
+$       THUS
+$
+$           M=EXP((-DH'+DS'*T)/RT)/RT=EXP(WORK(5)/RT)*EXP(WORK(9)/RT)/RT 
+$
+$           DH' CORRESPONDS TO PARAMETER MQ(...) OR DQ(..)
+$           DS' CORRESPONDS TO PARAMETER MF(...) OR DF(..)
+$
+$
+$--------------------------------------------------------------------------
+$        I M P O R T A N T   N O T E   T O   P R O G R A M M E R
+$--------------------------------------------------------------------------
+$
+$       WORK(5) AND WORK(9) ARE CALCULATED BY GES5 FROM THE MQ-PARAMETERS 
+$       ACCORDING TO THE ALLOY COMPOSITION
+$
+$          WORK(5)= sum( x * MQ(...j...) ) + Redlish-Kister polynomial
+$                     j    j
+$
+$
+$--------------------------------------------------------------------------
+$--------------------------------------------------------------------------
+$
+ TEMP-LIM 298.15 6000.00 !
+$
+$$ ELEMENT STABLE ELEMENT REFERENCE        MASS        H298-H0      S298
+ELEMENT VA      VACUUM                  0.0         0.0         0.0 !
+ELEMENT C       GRAPHITE                12.011      1054.0      5.74 !
+ELEMENT CO      HCP_A3                  58.93320    4765.6         3.004 !
+ELEMENT CR   BCC_A2                 5.1996E+01  4.0500E+03  2.3560E+01!
+ELEMENT N       1/2_MOLE_N2(G)          14.00674    4335        95.751 !
+ELEMENT TI      HCP_A3                  47.88       4810        30.648!
+ELEMENT NB      BCC_A2                  9.2906E+01  5.2200E+03  3.6270E+01!
+ELEMENT TA      BCC_A2                  1.8095E+02  5.6819E+03  4.1472E+01!
+ELEMENT W       BCC_A2                  183.85      4970.0      32.62 !
+ELEMENT FE   BCC_A2                 5.5847E+01  4.4890E+03  2.7280E+01!
+ELEMENT NI   FCC_A1                 5.8690E+01  4.7870E+03  2.9796E+01!
+
+$
+$
+$PHASE  NAME                 TYPE     NR OF SUBL. IN EACH SUBL.
+ PHASE FCC_A1                 Z       2  1  1 !
+$ PHASE FCC_A1                 ZF       2  1  1 !
+$
+ CONSTITUENT FCC_A1           :  CO CR TI W : C N VA : !
+ 
+$
+ DEFINE_SYSTEM_DEFAULT SPECIE 2 !
+ DEFAULT-COM DEF-SY-EL !
+$
+ TYPE-DEFINITION Z SEQ * !
+$
+$
+$============== V O L U M E   D A T A =================================
+$
+$ DUMMY DATA
+ PARAM VS(FCC_A1)    0 1.0E-5; 6000 N!
+$
+$
+$
+$============== D I F F U S I O N   D A T A ============================
+$
+$
+$
+$
+ ZEROVOLUME_SPECIES C N VA !
+$
+$
+$
+$ ============= P A R A M E T E R S ===================================
+$
+$
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$
+$                                    F C C 
+$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$
+$$ Carbon
+$
+PARA MQ(FCC_A1&C,CO:VA),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,TI:VA),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,W:VA),,  -149300+R*T*LOG(8.72E-6);,,N!
+$
+PARA MQ(FCC_A1&C,CO:C),,  -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,TI:C),,  -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,W:C),,   -149300+R*T*LOG(8.72E-6);,,N!
+$
+PARA MQ(FCC_A1&C,CO:N),,  -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,TI:N),,  -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&C,W:N),,   -149300+R*T*LOG(8.72E-6);,,N!
+$
+$
+$$ Cobalt
+$
+PARA MQ(FCC_A1&CO,CO:VA),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,TI:VA),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,W:VA),,  -260500+R*T*LOG(1.7E-5);,,N!
+$
+PARA MQ(FCC_A1&CO,CO:C),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,TI:C),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,W:C),,  -260500+R*T*LOG(1.7E-5);,,N!
+$
+PARA MQ(FCC_A1&CO,CO:N),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,TI:N),, -260500+R*T*LOG(1.7E-5);,,N!
+PARA MQ(FCC_A1&CO,W:N),,  -260500+R*T*LOG(1.7E-5);,,N!
+$
+$$ Nitrogen
+$
+PARA MQ(FCC_A1&N,CO:VA),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,TI:VA),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,W:VA),,  -149300+R*T*LOG(8.72E-6);,,N!
+$
+PARA MQ(FCC_A1&N,CO:C),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,TI:C),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,W:C),,  -149300+R*T*LOG(8.72E-6);,,N!
+$
+PARA MQ(FCC_A1&N,CO:N),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,TI:N),, -149300+R*T*LOG(8.72E-6);,,N!
+PARA MQ(FCC_A1&N,W:N),,  -149300+R*T*LOG(8.72E-6);,,N!
+$
+$$ Titanium
+$
+PARA MQ(FCC_A1&TI,CO:VA),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,TI:VA),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,W:VA),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+PARA MQ(FCC_A1&TI,CO:C),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,TI:C),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,W:C),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+PARA MQ(FCC_A1&TI,CO:N),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,TI:N),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&TI,W:N),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+$$ Tungsten
+$
+PARA MQ(FCC_A1&W,CO:VA),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,TI:VA),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,W:VA),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+PARA MQ(FCC_A1&W,CO:C),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,TI:C),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,W:C),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+PARA MQ(FCC_A1&W,CO:N),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,TI:N),, -282100+R*T*LOG(7.0E-5);,,N!
+PARA MQ(FCC_A1&W,W:N),,  -282100+R*T*LOG(7.0E-5);,,N!
+$
+
+$PHASE  NAME                 TYPE     NR OF SUBL. IN EACH SUBL.
+ PHASE  LIQUID               Z        1  1.0 !
+ CONSTITUENT LIQUID :C,CO,CR,N,TI,TA,NB,W :  !
+
+
+PARA MQ(liquid&co,co;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&c,co;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,co;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,co;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,co;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,co;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,co;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,co;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,co;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&ni,co;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+
+PARA MQ(liquid&co,c;0) 298.15 -11192+R*T*LN(2.76e-8); 6000 n !
+PARA MQ(liquid&c,c;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,c;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,c;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,c;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,c;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,c;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,c;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,c;0) 298.15 -11192+R*T*LN(2.76e-8); 6000 n !
+PARA MQ(liquid&ni,c;0) 298.15 -11192+R*T*LN(2.76e-8); 6000 n !
+
+PARA MQ(liquid&co,ti;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+PARA MQ(liquid&c,ti;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,ti;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,ti;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,ti;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,ti;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,ti;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,ti;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,ti;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+PARA MQ(liquid&ni,ti;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+
+PARA MQ(liquid&co,cr;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+PARA MQ(liquid&c,cr;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,cr;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,cr;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,cr;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,cr;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,cr;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,cr;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,cr;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+PARA MQ(liquid&ni,cr;0) 298.15 -40562+R*T*LN(1.93e-7); 6000 n !
+
+PARA MQ(liquid&co,ta;0) 298.15 -49400+R*T*LN(8.71e-8); 6000 n !
+PARA MQ(liquid&c,ta;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,ta;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,ta;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,ta;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,ta;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,ta;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,ta;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,ta;0) 298.15 -49400+R*T*LN(8.71e-8); 6000 n !
+PARA MQ(liquid&ni,ta;0) 298.15 -49400+R*T*LN(8.71e-8); 6000 n !
+
+PARA MQ(liquid&co,nb;0) 298.15 -109346+R*T*LN(2.78e-6); 6000 n !
+PARA MQ(liquid&c,nb;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,nb;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,nb;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,nb;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,nb;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,nb;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,nb;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,nb;0) 298.15 -109346+R*T*LN(2.78e-6); 6000 n !
+PARA MQ(liquid&ni,nb;0) 298.15 -109346+R*T*LN(2.78e-6); 6000 n !
+
+PARA MQ(liquid&co,w;0) 298.15 -60216+R*T*LN(1.56e-7); 6000 n !
+PARA MQ(liquid&c,w;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,w;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,w;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,w;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,w;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,w;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,w;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,w;0) 298.15 -60216+R*T*LN(1.56e-7); 6000 n !
+PARA MQ(liquid&ni,w;0) 298.15 -60216+R*T*LN(1.56e-7); 6000 n !
+
+PARA MQ(liquid&co,n;0) 298.15 -18844+R*T*LN(5.79e-8); 6000 n !
+PARA MQ(liquid&c,n;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,n;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,n;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,n;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,n;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,n;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,n;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,n;0) 298.15 -18844+R*T*LN(5.79e-8); 6000 n !
+PARA MQ(liquid&ni,n;0) 298.15 -18844+R*T*LN(5.79e-8); 6000 n !
+
+PARA MQ(liquid&fe,fe;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&c,fe;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,fe;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,fe;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,fe;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,fe;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,fe;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,fe;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&co,fe;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&ni,fe;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+
+PARA MQ(liquid&ni,ni;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&c,ni;0) 298.15 -68167+R*T*LN(6.60e-7); 6000 n !
+PARA MQ(liquid&cr,ni;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ti,ni;0) 298.15 -60622+R*T*LN(1.46e-7); 6000 n !
+PARA MQ(liquid&ta,ni;0) 298.15 -72586+R*T*LN(2.72e-7); 6000 n !
+PARA MQ(liquid&nb,ni;0) 298.15 -56338+R*T*LN(1.28e-7); 6000 n !
+PARA MQ(liquid&w,ni;0) 298.15 -58277+R*T*LN(1.21e-7); 6000 n !
+PARA MQ(liquid&n,ni;0) 298.15 -70395+R*T*LN(7.60e-7); 6000 n !
+PARA MQ(liquid&fe,ni;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+PARA MQ(liquid&co,ni;0) 298.15 -52652+R*T*LN(1.15e-7); 6000 n !
+
+
+
+
