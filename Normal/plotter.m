@@ -56,8 +56,6 @@ switch choice
     end
 end
 
-
-
 %% Plot individual mole fractions
 choice = questdlg('Plot mole-fractions?','plotting','YES', 'NO', 'YES');
 switch choice
@@ -184,23 +182,3 @@ switch choice
     end
 end
 end
-
-
-
-
-% %% Plot grid distribution
-% choice = questdlg('Plot grid points?','plotting','YES', 'NO', 'YES');
-% switch choice
-%   case 'YES'
-%     for i = 1 : size(tstps,2)
-%       deltadist=diff(dstf(:,i));
-%       deltadist(size(dstf(:,i)))=0;
-%       figure
-%       plot((1:size(dstf(:,i))),deltadist,'*');
-%     end
-% end
-
-  %Nf(i,:)=N;%tspf(i)=tstp;%vf(i,:)=vm;%vmf(i,:)=vm;%Bf(i,:)=B;%Npf(i,:,:)=Np;%Npmf(i,:,:)=Npm;%Npvf(i,:,:)=Npv;%Bpf(i,:,:)=Bp;%Bpmf(i,:,:)=Bpm;
-  %Bpvf(i,:,:)=Bpv;%Vpf(i,:,:)=Vp; %Vpmf(i,:,:)=Vpm; %Vmpf(i,:,:)=Vmp; ;
-  
-  %load([folder_name '\postDataTmp.mat'], 'TIME');
