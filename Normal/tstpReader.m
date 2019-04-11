@@ -1,5 +1,5 @@
 %% function tstpreader
-function []=tstpReader(tstp,folder_name,TIME)
+function []=tstpReader(tstp,folder_name,TIME, poly3path)
 load([folder_name '\postDataTmp.mat'], 'VOLUMES_PER_REGION',...
   'VOLUME_MIDPOINTS', 'MOLE_FRACTIONS', 'CHEMICAL_POTENTIALS',...
   'PHASE_FRACTIONS', 'nel', 'nph', 'M','elnames',...
@@ -77,7 +77,7 @@ N=1;P=101325;T=1723.15;
 % % % %   tc_phase_select('liquid');
 % % % %   tc_get_data;
 
-tc_read_poly3_file('C:\Users\salmasi\Desktop\POLY.POLY3')
+tc_read_poly3_file(poly3path)
 
 %% set conditions
 tctoolbox('tc_set_condition', 'n', N);
