@@ -1,18 +1,27 @@
+%% plot time steps
+choice = questdlg('Select plot atributes','plotter','+Boundaries', 'midPoints', '+Boundaries');
+switch choice
+    case '+Boundaries'
+        altPlotter(tstps,folder_name,TIME);
+    case 'midPoints'
+        plotter(tstps,folder_name,TIME);
+end
+
 %% function plotter
 function [] = altPlotter(tstps,folder_name,TIME)
 
 for i = 1 : size(tstps,2)
     fname= ['Alt_fs_t_' num2str(TIME(tstps(i)),'%10.0f') '.mat'];
-    load([folder_name '\' fname],'wfs', 'mfs', 'pfs','chemps','dist',...
-        'timeToPlot','nel','nph','elnames','phnamesPLOT','Vpv');
-    wf(i,:,:)=wfs;
+    load([folder_name '\' fname], 'mfs', 'pfs','chemps','dist',...
+        'timeToPlot','nel','nph','elnames','phaseNamesForPlot','Vpv');
+    %wf(i,:,:)=wfs;
     mf(i,:,:)=mfs;
     pf(i,:,:)=pfs;
     chempf(i,:,:)=chemps;
     dstf(:,i)=dist;
     tmToPlotf(i)=timeToPlot;
     Vpvf(i,:,:)=Vpv
-    clear wfs mfs pfs chemps dist timeToPlot Vpv
+    clear  mfs pfs chemps dist timeToPlot Vpv %wfs
 end
 %%
 d=linspace(1,100);
@@ -52,41 +61,14 @@ switch choice
             end
         end
 end
-%% Plot individual w fractions
-choice = questdlg('Plot weight-fractions?','plotting','YES', 'NO', 'YES');
-switch choice
-    case 'YES'
-        choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
-        for i = 1 :nel
-            figure
-            hold on
-            box on
-            for j = 1 : size(tstps,2)
-                wftemp(:,:) = wf(j,:,:);
-                plot(dstf(:,j), wftemp(i,:));
-                xlim([Xlow,Xmax]);
-                legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
-            end
-            xlabel('Distance [m]','FontSize',15);
-            ylabel(['Weight-Fraction ' elnames{i}],'FontSize',15);
-            leg=legend(legendcell,'FontSize',15);
-            %         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
-            switch choice
-                case '.fig'
-                    saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.fig'])
-                    saveas(gcf,[folder_name '\'  fNamesPrefix 'mfs_' elnames{i}], 'epsc') 
-                case '.png'
-                    saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.png'])
-            end
-        end
-end
+
 %% Plot individual phase fractions
 choice = questdlg('Plot phase-fractions?','plotting','YES', 'NO', 'YES');
 switch choice
     case 'YES'
         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
         for i = 1 :nph
-            TF = contains(phnamesPLOT(i),'ZZDICTRA-GHOST','IgnoreCase',true);
+            TF = contains(phaseNamesForPlot(i),'ZZDICTRA-GHOST','IgnoreCase',true);
             if ~TF
                 figure
                 hold on
@@ -98,7 +80,7 @@ switch choice
                     legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
                 end
                 xlabel('Distance [m]','FontSize',15);
-                ylabel(['Phase-Fraction ' ,phnamesPLOT{i}],'FontSize',15);
+                ylabel(['Phase-Fraction ' ,phaseNamesForPlot{i}],'FontSize',15);
                 leg=legend(legendcell,'FontSize',15);
                 %           choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
                 switch choice
@@ -118,7 +100,7 @@ switch choice
         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
         TF=[];
         for i = 1 :nph
-            TF = contains(phnamesPLOT(i),'ZZDICTRA-GHOST','IgnoreCase',true);
+            TF = contains(phaseNamesForPlot(i),'ZZDICTRA-GHOST','IgnoreCase',true);
             if ~TF
                 figure
                 hold on
@@ -130,7 +112,7 @@ switch choice
                     legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
                 end
                 xlabel('Distance [m]','FontSize',15);
-                ylabel(['Volume-Fraction ' phnamesPLOT{i}],'FontSize',15);
+                ylabel(['Volume-Fraction ' phaseNamesForPlot{i}],'FontSize',15);
                 leg=legend(legendcell,'FontSize',15);
                 %             choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
                 switch choice
@@ -174,3 +156,44 @@ switch choice
         end
 end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+% %% Plot individual w fractions
+% choice = questdlg('Plot weight-fractions?','plotting','YES', 'NO', 'YES');
+% switch choice
+%     case 'YES'
+%         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
+%         for i = 1 :nel
+%             figure
+%             hold on
+%             box on
+%             for j = 1 : size(tstps,2)
+%                 wftemp(:,:) = wf(j,:,:);
+%                 plot(dstf(:,j), wftemp(i,:));
+%                 xlim([Xlow,Xmax]);
+%                 legendcell(j)=cellstr(['t= ' num2str(tmToPlotf(j)','%5.0f') ' sec ']);
+%             end
+%             xlabel('Distance [m]','FontSize',15);
+%             ylabel(['Weight-Fraction ' elnames{i}],'FontSize',15);
+%             leg=legend(legendcell,'FontSize',15);
+%             %         choice = questdlg('Save to file?','save to file','.fig', '.png', 'NO', 'No');
+%             switch choice
+%                 case '.fig'
+%                     saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.fig'])
+%                     saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs_' elnames{i}], 'epsc') 
+%                 case '.png'
+%                     saveas(gcf,[folder_name '\'  fNamesPrefix 'wfs' elnames{i} '.png'])
+%             end
+%         end
+% end

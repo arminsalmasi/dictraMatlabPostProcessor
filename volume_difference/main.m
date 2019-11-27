@@ -2,8 +2,8 @@ clear variables; close all; clc;
 current_path= pwd ;
 folder_name = uigetdir(current_path);
 
-poly3path = [folder_name '\poly.POLY3']%'W:\carbon_activity_1\5.POLY3'
-%poly3path = ['C:\Users\armin\OneDrive\Desktop\New_labfunction_test\1.POLY3']%['X:\carbideDissolution\8-fcc2-fcc1Liq-DICTRAFCC' '\POLY.POLY3']%'W:\carbon_activity_1\5.POLY3'
+%poly3path = [folder_name '\5.POLY3']%'W:\carbon_activity_1\5.POLY3'
+poly3path = ['X:\carbideDissolution\8-fcc2-fcc1Liq-DICTRAFCC' '\POLY.POLY3']%'W:\carbon_activity_1\5.POLY3'
 %% read profiles from file/ save in the postDataTmp.mat
 
 if exist([folder_name 'postDataTmp.mat'], 'file')
